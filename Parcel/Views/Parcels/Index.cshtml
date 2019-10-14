@@ -1,15 +1,4 @@
 @using Parcel.Models;
 
-<h1>Parcels:</h1>
-@if (Model.Count == 0)
-{
-  <p>There are no parcels in the list.</p>
-}
-<ul>
-  @foreach (ParcelVariable parcel in Model)
-  {
-    <li>@parcel.Note Volume = @parcel.Volume() Cost = $@parcel.CostToShip() <a href="/parcels/@parcel.ID">View this Parcel</a></li>
-  }
-</ul>
 
 <a href="/parcels/new">Add a new parcel.</a>

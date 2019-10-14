@@ -1,0 +1,15 @@
+@model Parcel.Models.ParcelVariable;
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.SideA)
+    @Html.TextBoxFor(model => model.SideA)
+    @Html.LabelFor(model => model.SideB)
+    @Html.TextBoxFor(model => model.SideB)
+    @Html.LabelFor(model => model.SideC)
+    @Html.TextBoxFor(model => model.SideC)
+    @Html.LabelFor(model => model.Weight)
+    @Html.TextBoxFor(model => model.Weight)
+    @Html.LabelFor(model => model.Note)
+    @Html.TextBoxFor(model => model.Note)
+    <input type="submit" value="Add new task" />
+}

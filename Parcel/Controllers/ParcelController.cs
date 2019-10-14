@@ -1,43 +1,42 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Parcel.Models;
+using System.Linq;
 
 namespace Parcel.Controllers
 {
     public class ParcelsController : Controller
     {
+        private readonly ParcelContext _db;
+        public ParcelsController(ParcelContext db)
+        {
+            _db = db;
+        }
+
         [HttpGet("/parcels")]
         public ActionResult Index()
         {
-            List<ParcelVariable> allParcels = ParcelVariable.GetAll();
-            return View(allParcels);
+            // List<ParcelVariable> allParcels = ParcelVariable.GetAll();
+            return View();
         }
 
         [HttpGet("/parcels/new")]
-        public ActionResult New()
+        public ActionResult Create()
         {
             return View();
         }
 
-        [HttpPost("/parcels")]
-        public ActionResult Create(int sideA, int sideB, int sideC, int weight, string note)
+        [HttpPost("/parcels/new")]
+        public ActionResult Create(ParcelVariable newParcel)
         {
-            if ( sideA > 0 && sideB > 0 && sideC >0 && weight > 0 && note.Length > 0)
+            if ( newParcel.SideA > 0 && newParcel.SideB > 0 && newParcel.SideC >0 && newParcel.Weight > 0 && newParcel.Note.Length > 0)
             {
-                ParcelVariable myParcel = new ParcelVariable(sideA, sideB, sideC, weight, note);
-                 
+                _db.Parcels.Add(newParcel);
+                _db.SaveChanges();
             }
             
             return RedirectToAction("Index");
         }
-
-        [HttpGet("/parcels/{id}")]
-        public ActionResult Show(int id)
-        {
-            ParcelVariable foundParcel = ParcelVariable.Find(id);
-            return View(foundParcel);
-        }
-
     }
 }
 
