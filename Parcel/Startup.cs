@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Parcel.Models;
+using System.Linq;
 
 namespace Parcel
 {
@@ -28,7 +29,7 @@ namespace Parcel
 
             services.AddEntityFrameworkMySql()
                 .AddDbContext<ParcelContext>(options => options
-                .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
+                .UseMySql("Server=localhost;Port=3306;Database=parcel;Uid=root;pwd=epicodus;"));
         }
 
         public void Configure(IApplicationBuilder app)
