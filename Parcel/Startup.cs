@@ -29,7 +29,7 @@ namespace Parcel
 
             services.AddEntityFrameworkMySql()
                 .AddDbContext<ParcelContext>(options => options
-                .UseMySql("Server=localhost;Port=3306;Database=parcel;Uid=root;pwd=epicodus;"));
+                .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
         }
 
         public void Configure(IApplicationBuilder app)

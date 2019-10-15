@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Parcel.Models;
 using System.Linq;
 using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Parcel.Controllers
 {
@@ -18,13 +20,14 @@ namespace Parcel.Controllers
         [HttpGet("/parcels")]
         public ActionResult Index()
         {
-            List<ParcelVariable> model = _db.Parcels.ToList();
+            List<ParcelVariable> model = _db.ParcelTable.Include(parcels => parcels.Category).ToList();
             return View(model);
         }
 
         [HttpGet("/parcels/new")]
         public ActionResult Create()
         {
+            ViewBag.CategoryID = new SelectList(_db.Categories, "CategoryId", "Name");
             return View();
         }
 
@@ -34,10 +37,40 @@ namespace Parcel.Controllers
             if (newParcel.SideA > 0 && newParcel.SideB > 0 && newParcel.SideC >0 && newParcel.Weight > 0 && newParcel.Note.Length > 0)
             {
                 Console.WriteLine(newParcel);
-                _db.Parcels.Add(newParcel);
+                _db.ParcelTable.Add(newParcel);
                 _db.SaveChanges();
             }
             
+            return RedirectToAction("Index");
+        }
+        [HttpGet("/parcels/edit/{id}")]
+        public ActionResult Edit(int id)
+        {
+            var thisParcel = _db.ParcelTable.FirstOrDefault(parcels => parcels.ID == id);
+            return View(thisParcel);
+        }
+        [HttpPost("/parcels/edit/{id}")]
+        public ActionResult Edit(ParcelVariable foundParcel)
+        {
+            _db.Entry(foundParcel).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpGet("/parcels/delete/{id}")]
+        public ActionResult Delete(int id)
+        {
+            var thisParcel = _db.ParcelTable.FirstOrDefault(parcels => parcels.ID == id);
+            return View(thisParcel);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirm(int id)
+        {
+            var thisParcel = _db.ParcelTable.FirstOrDefault(parcels => parcels.ID == id);
+            _db.ParcelTable.Remove(thisParcel);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

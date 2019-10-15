@@ -11,7 +11,7 @@
     @Html.TextBoxFor(model => model.Weight)
     @Html.LabelFor(model => model.Note)
     @Html.TextBoxFor(model => model.Note)
-    @Html.LabelFor(model => model.Category)
-    @Html.DropDownList("CategoryID")
     <input type="submit" value="Add new task" />
+ 
 }
+<p>@Html.ActionLink("Add new Parcel", "Create", "Parcels")</p>

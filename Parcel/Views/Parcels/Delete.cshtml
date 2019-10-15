@@ -1,0 +1,10 @@
+@model Parcel.Models.ParcelVariable;
+
+<h2>Are you sure you want to delete this?</h2>
+
+@Html.DisplayNameFor(model => model.Note): @Html.DisplayFor(model => model.Note)
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Delete" />
+}
+@Html.ActionLink("Back to List", "Index")

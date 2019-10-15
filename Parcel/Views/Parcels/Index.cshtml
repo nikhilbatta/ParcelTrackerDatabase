@@ -1,7 +1,4 @@
 @using Parcel.Models;
-@{
-  Layout = "_Layout";
-}
 
 <h1>Items</h1>
 
@@ -10,9 +7,13 @@
   <h3>No items have been added yet!</h3>
 } 
 
-@foreach (ParcelVariable item in Model)
+@foreach (ParcelVariable parcel in Model)
 {
-  <li>@item</li>
+  
+  <p>@Html.ActionLink("Edit Parcel", "Edit", new {id = parcel.ID})</p>
+
+  <p>@Html.ActionLink("Delete Parcel", "Delete", new { id = parcel.ID })</p>
 }
 
-<a href="/parcels/new">Add a new parcel.</a>
+
+<p>@Html.ActionLink("Add new Parcel", "Create", "Parcels")</p>

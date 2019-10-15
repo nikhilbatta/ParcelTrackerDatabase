@@ -10,6 +10,8 @@ namespace Parcel.Models
         public int SideC { get; set; }
         public int Weight {get; set; }
         public string Note { get; set; }
-        public int ID {get;set;} 
+        public int CategoryID { get; set; }
+        public virtual Category Category { get; set; }
+        public int ID { get; set; } 
     }
 }
