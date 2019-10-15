@@ -73,6 +73,7 @@ namespace Parcel.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        
     }
 }
 

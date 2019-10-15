@@ -9,6 +9,7 @@
 
 @foreach (ParcelVariable parcel in Model)
 {
+  <h1>@parcel.Note</h1>
   
   <p>@Html.ActionLink("Edit Parcel", "Edit", new {id = parcel.ID})</p>
 

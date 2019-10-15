@@ -1,0 +1,12 @@
+
+
+@model List<Parcel.Models.ParcelVariable>
+
+<h2>Item Details</h2>
+<hr />
+@foreach (var whatever in @Model)
+{
+    <h3>@Html.DisplayNameFor(model => whatever.Note): @Html.DisplayFor(model => whatever.Note)</h3>
+}
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
